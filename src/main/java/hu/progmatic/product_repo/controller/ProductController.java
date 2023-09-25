@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/products")  //@Controller + @ResponseBody(JSON)
+@RestController
+@RequestMapping("/products")  //@Controller + @ResponseBody(JSON)
 public class ProductController {
     private final ProductService productService;
 
@@ -17,8 +18,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping()
-    public List<Product> getAllProduct(@PathVariable Long id){
+    @GetMapping
+    public List<Product> getAllProduct(){
         return productService.getAllProduct();
     }
 
@@ -27,7 +28,7 @@ public class ProductController {
         return productService.findById(id);
     }
     @PostMapping("/product")
-    public Product createNewProduct(@RequestParam Product product){
+    public Product createNewProduct(@RequestBody Product product){
         return productService.createProduct(product);
     }
 }
