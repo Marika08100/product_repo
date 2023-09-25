@@ -27,8 +27,19 @@ public class ProductController {
     public Product getProductByID(@PathVariable Long id){
         return productService.findById(id);
     }
-    @PostMapping("/product")
+    @PostMapping // THIS IS TH WAY
     public Product createNewProduct(@RequestBody Product product){
         return productService.createProduct(product);
+    }
+    // THIS IS NOT THE WAY
+    @GetMapping("/create/{name}/{price}") // http://localhost:8080/products/create/kandallo/5
+    public Product createProductByPathVariable(@PathVariable String name, @PathVariable Integer price) {
+        return productService.createProduct(new Product(name, price));
+    }
+
+    // THIS IS NOT THE WAY EITHER
+    @GetMapping("/create") // http://localhost:8080/products/create?name=sajtostaller&price=10
+    public Product createProductByRequestParam(@RequestParam String name, @RequestParam Integer price) {
+        return productService.createProduct(new Product(name, price));
     }
 }
